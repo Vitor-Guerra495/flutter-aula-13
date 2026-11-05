@@ -158,8 +158,6 @@ class _TelaMostrarState extends State<TelaMostrar> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (_idAtual > 0) Text('ID: $_idAtual'),
-            const SizedBox(height: 8),
             if (_imagemExibida.isNotEmpty)
               Image.network(
                 '$baseUrl/$_imagemExibida',
@@ -168,7 +166,7 @@ class _TelaMostrarState extends State<TelaMostrar> {
               ),
             const SizedBox(height: 12),
             Text(
-              _descricaoExibida.isEmpty ? '(Sem descrição)' : _descricaoExibida,
+              _descricaoExibida,
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 24),
@@ -227,8 +225,10 @@ class _TelaTodasFotosState extends State<TelaTodasFotos> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ID: ${item['id']} - ${item['texto']}'),
-                        const SizedBox(height: 8),
+                        if (item['texto'].toString().isNotEmpty) ...[
+                          Text(item['texto'].toString(), style: const TextStyle(fontSize: 16)),
+                          const SizedBox(height: 8),
+                        ],
                         Image.network(
                           '$baseUrl/${item['imagem']}',
                           height: 200,
